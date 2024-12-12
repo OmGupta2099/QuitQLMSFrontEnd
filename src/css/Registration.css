@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#background {
+  background-image: url("../images/login.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(128, 128, 128, 0.5);
+  z-index: 1;
+}
+
+.mysection {
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  width: 100%;
+  z-index: 2;
+}
+
+.myform {
+  display: flex;
+  flex-wrap: wrap;
+}
+.myform > div {
+  flex: 1;
+  min-width: 300px;
+  padding: 10px;
+}
+
+.reginput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.regbtn {
+  padding: 0.6rem;
+  margin-top: 30px;
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+}
+
+.instructions {
+  color: #ff0000;
+}
+
+.errmsg {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
+}
+
+.hide {
+  display: none;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}

@@ -1,0 +1,64 @@
+.custom-navbar {
+  padding: 0.5rem 1.5rem;
+  height: 8vh;
+}
+
+.leftnav {
+  margin-left: 1rem; /* Maintain a relative margin for the left nav */
+}
+
+.search-container {
+  margin-left: 2rem; /* Reduced margin for better responsiveness */
+  flex-grow: 1; /* Ensures the search container expands flexibly */
+  display: flex;
+}
+
+.search-container .input-group {
+  width: 100%; /* Make the search bar responsive */
+  max-width: 500px; /* Set a maximum width to prevent overflow */
+}
+
+.search-container .btn-yellow {
+  background-color: #efd037; /* Yellow button */
+  border-color: #efd037;
+}
+
+.search-container .form-control {
+  background-color: white;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.search-container .btn {
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-item {
+  font-weight: 600;
+  font-size: 1rem; /* Set font size using rem for scaling */
+  cursor: pointer;
+  padding-left: 0.5rem;
+}
+
+.rightitem {
+  color: #fff;
+  text-decoration: none;
+  padding-left: 0.5rem; /* Increased padding slightly for consistency */
+  transition: transform 0.2s ease-in-out; /* Smooth hover transition */
+}
+
+.rightitem:hover {
+  transform: scale(1.1); /* Slightly scale on hover */
+}
+
+.input-group-text {
+  background-color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+
+.input-group .form-control::placeholder {
+  font-size: 0.9rem; /* Responsive placeholder font size */
+  color: #767676;
+}

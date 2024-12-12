@@ -1,0 +1,74 @@
+/* Container holding image and text side by side */
+.product-container {
+  display: flex;
+  justify-content: space-around; /* Centers the content horizontally */
+  align-items: center; /* Aligns the content to the top */
+  flex-direction: row; /* Items side by side */
+  padding: 20px;
+  min-height: 81vh; /* Full viewport height */
+  gap: 40px; /* Gap between the image and text */
+}
+
+/* For the left column (image) */
+.left-product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  margin-top: 2rem;
+}
+
+.main-product-image {
+  width: 100%;
+  max-width: 400px; /* Limit the max width of the image */
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* For the right column (text and buttons) */
+.right-product {
+  margin-top: 2rem;
+  height: 27rem;
+  text-align: left; /* Align text to the left */
+  width: 50%; /* Occupies the remaining 50% of the width */
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+  color: green;
+  margin-bottom: 10px;
+}
+
+/* Button Group Styling */
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px; /* Adds space between the buttons */
+}
+
+.productbtn {
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-add-to-cart {
+  margin-top: 3rem;
+  margin-left: 2rem;
+  background-color: #ffc107; /* Golden yellow shade */
+  color: black;
+}
+
+.btn-buy-now {
+  margin-top: 3rem;
+  background-color: #ffb300; /* Darker shade of golden yellow */
+  color: black;
+  padding-right: 4rem;
+}
+.Toastify__toast-container {
+  top: 60px !important; /* Adjust this value to move the toast lower */
+}

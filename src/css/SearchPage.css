@@ -1,0 +1,117 @@
+.search-page-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.left-section{
+    margin-right: -10rem;
+}
+
+.filters {
+    width: 100%;
+    background-color:#e5f7f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.category-section{
+    width: 100%;
+    background-color:#e5f7f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.product-results {
+    width: 75%;
+}
+
+.search-img-top {
+    height: 250px; 
+    width: 100%;   
+    object-fit: cover; 
+}
+
+.card-body h5.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-body h6.card-subtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Styling for the category dropdown section */
+.category-section {
+    margin-bottom: 20px;
+}
+
+.category-section h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.category-dropdown-menu {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.category-item input[type="radio"] {
+    margin-right: 10px;
+}
+
+.category-divider {
+    margin: 2px 0;
+    border-color: #e0e0e0;
+}
+
+.price-slider {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.price-slider-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.price-slider-container label {
+    margin-right: 10px;
+    font-weight:normal;
+}
+
+.price-slider-container span {
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+.price-slider .form-range {
+    flex-grow: 1;
+}
+
+.price-range {
+    font-weight: bold;
+    text-align: center;
+}

@@ -1,0 +1,17 @@
+.footer {
+  background-color: #46a1e9;
+  height: 11vh;
+}
+
+.footer a {
+  text-decoration: none; /* Remove underline from links */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* Underline links on hover */
+}
+
+.footer .container-fluid {
+  max-width: 1200px; /* Centering content */
+  margin: auto;
+}

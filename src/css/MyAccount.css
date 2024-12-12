@@ -1,0 +1,91 @@
+.my-account-container {
+    display: flex;
+    margin: 3%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 25%;
+    background-color: #f5f5f5;
+    padding: 20px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    margin-right: 1rem;
+}
+
+.hello-section {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+.hello-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.menu-section,.logout-section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight:600;
+    font-size:large;
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.menu-section,.profile-section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight:600;
+    font-size:large;
+}
+
+.profile-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.menu-section,.user-coupons-section {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight:600;
+    font-size:large;
+}
+
+.coupons-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Account Information Form */
+.addform {
+    flex: 1;
+    padding: 4%;
+    background-color: white;
+    color: black;
+    font-size: medium;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.savebtn {
+    background-color: #EFD037;
+    border-color: #EFD037;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    font-size: 16px;
+}

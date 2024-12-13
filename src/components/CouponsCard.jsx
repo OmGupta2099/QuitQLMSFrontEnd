@@ -103,7 +103,7 @@ const CouponsCard = ({ coupon, color }) => {
                 color: textColor,
               }}
             >
-              {coupon.couponName}
+              {coupon.couponTitle}
             </Typography>
             <Chip
               label={coupon.status}
@@ -225,7 +225,7 @@ const CouponsCard = ({ coupon, color }) => {
             Coupon Details
           </Typography>
           <Typography variant="body1" sx={{ mb: 2, color: textColor }}>
-            <strong>Coupon Name:</strong> {coupon.couponName}
+            <strong>Coupon Title:</strong> {coupon.couponTitle}
           </Typography>
           <Typography variant="body1" sx={{ mb: 2, color: textColor }}>
             <strong>Issued On:</strong>{" "}

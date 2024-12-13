@@ -11,9 +11,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
-  Grid2 as MuiGrid,
+  Grid as MuiGrid,
+  Pagination,
+  Box,
 } from "@mui/material";
-import CouponsCard from "../CouponsCard"; // Ensure you import this component
+import CouponsCard from "../CouponsCard";
 
 export default function MyAccount() {
   const { auth, logout } = useAuth();
@@ -39,6 +41,8 @@ export default function MyAccount() {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showProfile, setShowProfile] = useState(true);
   const [showCoupons, setShowCoupons] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const couponsPerPage = 6;
 
   useEffect(() => {
     console.log("get account use effect fired...");
@@ -53,66 +57,70 @@ export default function MyAccount() {
   }, [authemail, token]);
 
   const loadCoupons = async (authemail, token) => {
-    // try {
-    //   const response = await CustomerService.getCouponsByEmail(authemail, token);
-    //   setUserCoupons(response.data);
-    // } catch (error) {
-    //   console.error("Error fetching coupons:", error);
-    // }
-    setUserCoupons([
-      {
-          "couponName": "10% off on all Products",
-          "couponCode": "PYF78E",
-          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
-          "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
-          "issuedOn": "2024-12-12T13:36:33.788917",
-          "status": "ACTIVE",
-          "expiry": "2025-01-11T13:36:33.788917",
-          "couponUsedDate": null
-      },
-      {
-        "couponName": "10% off on all Products",
-        "couponCode": "PYF78E",
-        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
-        "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
-        "issuedOn": "2024-12-12T13:36:33.788917",
-        "status": "USED",
-        "expiry": "2025-01-11T13:36:33.788917",
-        "couponUsedDate": "2024-12-11T13:36:33.788917"
-    },
-      {
-          "couponName": "30% off on Jeans",
-          "couponCode": "CQXVVE",
-          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
-          "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
-          "issuedOn": "2024-12-12T13:36:36.603624",
-          "status": "ACTIVE",
-          "expiry": "2025-01-11T13:36:36.603624",
-          "couponUsedDate": null
-      },
-    {
-        "couponName": "30% off on Jeans",
-        "couponCode": "CQXVVE",
-        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
-        "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
-        "issuedOn": "2024-11-12T13:36:36.603624",
-        "status": "EXPIRED",
-        "expiry": "2024-12-11T13:36:36.603624",
-        "couponUsedDate": null
+    try {
+      const response = await CustomerService.getCouponsByEmail(authemail, token);
+    //   const response = [
+    //      {
+    //          "couponName": "10% off on all Products",
+    //           "couponCode": "PYF78E",
+    //           "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+    //           "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
+    //          "issuedOn": "2024-12-12T13:36:33.788917",
+    //          "status": "ACTIVE",
+    //          "expiry": "2025-01-11T13:36:33.788917",
+    //          "couponUsedDate": null
+    //      },
+    //      {
+    //        "couponName": "10% off on all Products",
+    //        "couponCode": "PYF78E",
+    //        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+    //        "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
+    //        "issuedOn": "2024-12-12T13:36:33.788917",
+    //        "status": "USED",
+    //        "expiry": "2025-01-11T13:36:33.788917",
+    //        "couponUsedDate": "2024-12-11T13:36:33.788917"
+    //    },
+    //       {
+    //          "couponName": "30% off on Jeans",
+    //          "couponCode": "CQXVVE",
+    //          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+    //          "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
+    //          "issuedOn": "2024-12-12T13:36:36.603624",
+    //          "status": "ACTIVE",
+    //          "expiry": "2025-01-11T13:36:36.603624",
+    //          "couponUsedDate": null
+    //      },
+    //    {
+    //        "couponName": "30% off on Jeans",
+    //        "couponCode": "CQXVVE",
+    //        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+    //        "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
+    //        "issuedOn": "2024-11-12T13:36:36.603624",
+    //        "status": "EXPIRED",
+    //        "expiry": "2024-12-11T13:36:36.603624",
+    //        "couponUsedDate": null
+    //    }
+    //  ]
+      const sortedCoupons = response.data.sort((a, b) => {
+        const statusOrder = { ACTIVE: 1, USED: 2, EXPIRED: 3 };
+        return statusOrder[a.status] - statusOrder[b.status];
+      });
+      setUserCoupons(sortedCoupons);
+    } catch (error) {
+      console.error("Error fetching coupons:", error);
     }
-  ])
   };
 
   const updateSave = () => {
     if (!validatePhoneNumber(phone_number)) {
-      toast.error("Phone number must be exactly 10 digits."); // Show error message
+      toast.error("Phone number must be exactly 10 digits.");
       return;
     }
-    setShowSaveModal(true); // Show save confirmation modal
+    setShowSaveModal(true);
   };
 
   const validatePhoneNumber = (phone) => {
-    const phoneRegex = /^\d{10}$/; // Corrected regex for exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
     return phoneRegex.test(phone);
   };
 
@@ -146,6 +154,14 @@ export default function MyAccount() {
     navigate("/login");
     setShowLogoutModal(false);
   };
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  const indexOfLastCoupon = currentPage * couponsPerPage;
+  const indexOfFirstCoupon = indexOfLastCoupon - couponsPerPage;
+  const currentCoupons = userCoupons.slice(indexOfFirstCoupon, indexOfLastCoupon);
 
   return (
     <div className="my-account-container">
@@ -299,22 +315,30 @@ export default function MyAccount() {
           </>
         )}
         {showCoupons && (
-          <><div className="row mb-3">
-          <div className="col-sm-10">
-            <h5>My Coupons</h5>
-          </div>
-          </div>
+          <>
+            <div className="row mb-3">
+              <div className="col-sm-10">
+                <h5>My Coupons</h5>
+              </div>
+            </div>
             {userCoupons.length > 0 ? (
-              <MuiGrid container spacing={3}>
-                {userCoupons.map((coupon) => (
-                  <MuiGrid item xs={12} sm={6} md={4} key={coupon.couponCode}>
-                    <CouponsCard
-                      coupon={coupon}
-                      color={"#0F52BA"}
-                    />
-                  </MuiGrid>
-                ))}
-              </MuiGrid>
+              <>
+                <MuiGrid container spacing={3}>
+                  {currentCoupons.map((coupon) => (
+                    <MuiGrid item xs={12} sm={6} md={4} key={coupon.couponCode}>
+                      <CouponsCard coupon={coupon} color={"#0F52BA"} />
+                    </MuiGrid>
+                  ))}
+                </MuiGrid>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                  <Pagination
+                    count={Math.ceil(userCoupons.length / couponsPerPage)}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                  />
+                </Box>
+              </>
             ) : (
               <Typography
                 variant="body1"

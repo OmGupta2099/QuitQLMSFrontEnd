@@ -13,7 +13,7 @@ import {
   Typography,
   Grid2 as MuiGrid,
 } from "@mui/material";
-import CouponsCard from "../../utils/CouponsCard"; // Ensure you import this component
+import CouponsCard from "../CouponsCard"; // Ensure you import this component
 
 export default function MyAccount() {
   const { auth, logout } = useAuth();
@@ -53,12 +53,54 @@ export default function MyAccount() {
   }, [authemail, token]);
 
   const loadCoupons = async (authemail, token) => {
-    try {
-      const response = await CustomerService.getCouponsByEmail(authemail, token);
-      setUserCoupons(response.data);
-    } catch (error) {
-      console.error("Error fetching coupons:", error);
+    // try {
+    //   const response = await CustomerService.getCouponsByEmail(authemail, token);
+    //   setUserCoupons(response.data);
+    // } catch (error) {
+    //   console.error("Error fetching coupons:", error);
+    // }
+    setUserCoupons([
+      {
+          "couponName": "10% off on all Products",
+          "couponCode": "PYF78E",
+          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+          "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
+          "issuedOn": "2024-12-12T13:36:33.788917",
+          "status": "ACTIVE",
+          "expiry": "2025-01-11T13:36:33.788917",
+          "couponUsedDate": null
+      },
+      {
+        "couponName": "10% off on all Products",
+        "couponCode": "PYF78E",
+        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+        "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
+        "issuedOn": "2024-12-12T13:36:33.788917",
+        "status": "USED",
+        "expiry": "2025-01-11T13:36:33.788917",
+        "couponUsedDate": "2024-12-11T13:36:33.788917"
+    },
+      {
+          "couponName": "30% off on Jeans",
+          "couponCode": "CQXVVE",
+          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+          "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
+          "issuedOn": "2024-12-12T13:36:36.603624",
+          "status": "ACTIVE",
+          "expiry": "2025-01-11T13:36:36.603624",
+          "couponUsedDate": null
+      },
+    {
+        "couponName": "30% off on Jeans",
+        "couponCode": "CQXVVE",
+        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
+        "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
+        "issuedOn": "2024-11-12T13:36:36.603624",
+        "status": "EXPIRED",
+        "expiry": "2024-12-11T13:36:36.603624",
+        "couponUsedDate": null
     }
+  ])
   };
 
   const updateSave = () => {
@@ -268,7 +310,7 @@ export default function MyAccount() {
                   <MuiGrid item xs={12} sm={6} md={4} key={coupon.couponCode}>
                     <CouponsCard
                       coupon={coupon}
-                      color={"#FCE205"}
+                      color={"#0F52BA"}
                     />
                   </MuiGrid>
                 ))}

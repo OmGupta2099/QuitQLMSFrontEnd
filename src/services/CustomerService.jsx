@@ -35,7 +35,20 @@ class CustomerService {
 getCouponsByEmail(email, token){
   return axios({
     method: "get",
-    url: "http://localhost:8080/api/v1/quitq/payments/getUserId/email?email=" + email,
+    url: "http://localhost:8080/api/v1/quitq/payments/getCoupons/email?email=" + email,
+    responseType: "json",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+//get tiers by email
+getTiersByEmail(email, token){
+  return axios({
+    method: "get",
+    url: "http://localhost:8080/api/v1/quitq/payments/getTiersStatus/email?email=" + email,
     responseType: "json",
     headers: {
       "Access-Control-Allow-Origin": "*",

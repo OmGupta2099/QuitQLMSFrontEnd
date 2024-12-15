@@ -32,3 +32,28 @@
   border-color: #46a1e9;  
   color: #fff;  
 }
+
+.offer-bubble {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 69, 0, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.price-section {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+ 
+.text-decoration-line-through {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 0.9rem;
+}

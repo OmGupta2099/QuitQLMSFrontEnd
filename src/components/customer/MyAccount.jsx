@@ -61,7 +61,7 @@ export default function MyAccount() {
       const response = await CustomerService.getCouponsByEmail(authemail, token);
     //   const response = [
     //      {
-    //          "couponName": "10% off on all Products",
+    //          "couponTitle": "10% off on all Products",
     //           "couponCode": "PYF78E",
     //           "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
     //           "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
@@ -71,7 +71,7 @@ export default function MyAccount() {
     //          "couponUsedDate": null
     //      },
     //      {
-    //        "couponName": "10% off on all Products",
+    //        "couponTitle": "10% off on all Products",
     //        "couponCode": "PYF78E",
     //        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
     //        "couponId": "4fcfbeaa-016c-497e-9571-f91a90a8464e",
@@ -81,7 +81,7 @@ export default function MyAccount() {
     //        "couponUsedDate": "2024-12-11T13:36:33.788917"
     //    },
     //       {
-    //          "couponName": "30% off on Jeans",
+    //          "couponTitle": "30% off on Jeans",
     //          "couponCode": "CQXVVE",
     //          "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
     //          "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",
@@ -91,7 +91,7 @@ export default function MyAccount() {
     //          "couponUsedDate": null
     //      },
     //    {
-    //        "couponName": "30% off on Jeans",
+    //        "couponTitle": "30% off on Jeans",
     //        "couponCode": "CQXVVE",
     //        "uId": "4f610121-4adc-4c47-a21f-c047dafb108e",
     //        "couponId": "84816b56-c7bc-4058-9469-10ee720c9010",

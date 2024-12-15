@@ -178,7 +178,7 @@ const CouponsCard = ({ coupon, color }) => {
             <Typography
               variant="body2"
               sx={{
-                color: textColor,
+                color: "#ffffff",
                 fontWeight: "bold",
                 mr: 1,
               }}
@@ -188,7 +188,7 @@ const CouponsCard = ({ coupon, color }) => {
             <Tooltip title="Copy Coupon Code">
               <IconButton
                 onClick={() => copyToClipboard(coupon.couponCode)}
-                sx={{ color: textColor }}
+                sx={{ color: "#ffffff" }}
               >
                 <ContentCopyIcon />
               </IconButton>

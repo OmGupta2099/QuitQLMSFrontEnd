@@ -71,7 +71,13 @@ class ProductService {
       },
     });
   }
- 
+
+  getTiers() {
+    return axios.get(
+      "http://localhost:8080/api/v1/quitq/payments/getAllTiers",
+    );
+  }
+
   getOffers() {
     return axios.get(
       "http://localhost:8081/api/v1/products/getallactiveoffers",

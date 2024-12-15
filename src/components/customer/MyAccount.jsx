@@ -11,11 +11,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
-  Grid as MuiGrid,
+  Grid2 as MuiGrid,
   Pagination,
   Box,
 } from "@mui/material";
 import CouponsCard from "../CouponsCard";
+import TierCard from "../TierCard";
 
 export default function MyAccount() {
   const { auth, logout } = useAuth();
@@ -174,6 +175,7 @@ export default function MyAccount() {
             className="hello-img"
           />
           <h4>Hello, {user_name}</h4>
+          <TierCard email={authemail} token={token}/>
         </div>
         <hr />
         <div className="profile-section" onClick={handleProfile}>

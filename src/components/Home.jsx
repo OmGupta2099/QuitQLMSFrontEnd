@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ProductService from "../services/ProductService";
 import "../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthContext } from "../context/AuthProvider";
  
 const productService = new ProductService();
  
 export default function Home() {
   const navigate = useNavigate();
   const [productList, setProductList] = useState([]);
-  const [offerList, setOfferList] = useState([]);
+  const [filteredOffers, setFilteredOffers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
- 
+  const { auth, activeOffers, currentTierStatus, setTiersList, setActiveOffers } = useContext(AuthContext);
+
   useEffect(() => {
     console.log("Fetching products...");
     productService.getAllProducts().then((response) => {
       setProductList(response.data);
       console.log("Products:", response.data);
     });
- 
-    console.log("Fetching offers...");
+    fetchTiers();
     fetchOffers();
   }, []);
  
+  const fetchTiers = async () => {
+    try{
+    const tiersResponse = await productService.getTiers();
+    setTiersList(tiersResponse.data);
+    console.log("Tiers:", tiersResponse.data);
+    } catch(error){
+      console.error("Error fetching Tiers:", error);
+    }
+  }
   const fetchOffers = async () => {
-    productService.getOffers().then((response) => {
-      setOfferList(response.data);
-      console.log("offers:", response.data);
-    });
-    // const mockAPI = [
+    try {     
+    //   const mockAPI = [
     //   {
     //     offerId: "629ea428-b9e2-4310-8416-26e15b4da237", 
     //     tierId: "eb2c581f-b3c1-46f1-8d15-52724b49f1ba", 
@@ -72,7 +79,26 @@ export default function Home() {
     //     status: true,
     //   },
     // ];
-    // setOfferList(mockAPI);
+    // setFilteredOffers(mockAPI);
+    // setActiveOffers(mockAPI);
+    // console.log(activeOffers);
+    // console.log(filteredOffers);
+    
+    const offersResponse = await productService.getOffers();
+      if (auth?.userRole === "Customer") {
+        const personalizedOffers = offersResponse.data.filter(
+          (offer) => offer.tierId === currentTierStatus.tierId
+        );
+        setFilteredOffers(personalizedOffers);
+        setActiveOffers(personalizedOffers);
+        console.log("Filtered Offers for Tier:", personalizedOffers);
+      } else {
+        setFilteredOffers(offersResponse.data);
+        setActiveOffers(offersResponse.data);
+      }
+    } catch (error) {
+      console.error("Error fetching offers:", error);
+    }
   };
  
   const imgClickHandler = (product_name, product_id) => {
@@ -98,61 +124,62 @@ export default function Home() {
     }
   };
  
-  const highestBenefit = offerList.reduce(
+  const highestBenefit = filteredOffers.reduce(
     (max, offer) => (offer.benefit > max ? offer.benefit : max),
     0
   );
  
   return (
 <div className="container-fluid homecontainer">
+
       {/* Carousel */}
 <Carousel className="mb-4">
-        {offerList.map((offer) => (
+
+        {filteredOffers.map((offer) => (
 <Carousel.Item key={offer.offerId}>
 <img
+
               className="d-block w-100"
+
               src={offer.imageUrl}
+
               alt={offer.offerTitle}
+
               style={{ maxHeight: "500px", objectFit: "cover" }}
+
             />
 <Carousel.Caption>
 <h3>{offer.offerTitle}</h3>
 <p>{offer.offerDescription}</p>
 </Carousel.Caption>
 </Carousel.Item>
+
         ))}
 </Carousel>
-
-<div className="row">
+ 
+      <div className="row">
         {currentProducts.map((product) => {
-          const discPrice = offerList.length
+          const discPrice = filteredOffers.length
             ? product.price - (highestBenefit / 100) * product.price
             : product.price;
- 
+          
+          const bubbleColor = currentTierStatus?.colour || "#FF0000";
+
           return (
 <div className="custom-col-5 col-md-3" key={product.product_id}>
-<div
-                className="card"
-                onClick={() =>
-                  imgClickHandler(product.product_name, product.product_id)
-                }
->
-                {offerList.length > 0 && (
-<div className="offer-bubble">
-                    Upto {highestBenefit}% off
+<div className="card" onClick={() => imgClickHandler(product.product_name, product.product_id)}>
+  {filteredOffers.length > 0 && (
+<div className="offer-bubble" style={{ backgroundColor: bubbleColor }}>
+Upto {highestBenefit}% off
 </div>
-                )}
-<img
-                  className="card-img-top"
-                  src={product.imgUrl}
-                  alt="Card image cap"
-                />
+)}
+<img className="card-img-top" src={product.imgUrl} alt="Card image cap"/>
 <div className="card-body">
 <h6 className="card-subtitle mb-2 text-muted">
-                    {product.brand}
+{product.brand}
 </h6>
 <h5 className="card-title">{product.product_name}</h5>
-                  {offerList.length > 0 ? (
+{filteredOffers.length > 0 ? (
 <div className="price-section">
 <h5 className="card-title text-danger">
 <b>₹{discPrice.toFixed(2)}</b>
@@ -161,61 +188,58 @@ export default function Home() {
 ₹{product.price}
 </h6>
 </div>
-                  ) : (
+) : (
 <h5 className="card-title text-success">
-<b>${product.price}</b>
+<b>₹{product.price}</b>
 </h5>
-                  )}
+)}
 </div>
 </div>
 </div>
-          );
-        })}
+);
+})}
 </div>
- 
-      {productList.length > productsPerPage && (
+{productList.length > productsPerPage && (
 <nav aria-label="Page navigation">
 <ul className="pagination justify-content-center mt-4">
 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-<button
-                className="page-link"
-                onClick={handlePreviousPage}
-                disabled={currentPage === 1}
->
-                Previous
+<button className="page-link" onClick={handlePreviousPage} disabled={currentPage === 1}>
+Previous
 </button>
 </li>
-            {Array.from({ length: totalPages }, (_, index) => (
-<li
-                className={`page-item ${
-                  currentPage === index + 1 ? "active" : ""
-                }`}
-                key={index}
->
-<button
-                  className="page-link"
-                  onClick={() => setCurrentPage(index + 1)}
->
-                  {index + 1}
+{Array.from({ length: totalPages }, (_, index) => (
+<li className={`page-item ${currentPage === index + 1 ? "active" : ""}`} key={index}>
+<button className="page-link" onClick={() => setCurrentPage(index + 1)}>
+{index + 1}
 </button>
 </li>
-            ))}
+))}
 <li
+
               className={`page-item ${
+
                 currentPage === totalPages ? "disabled" : ""
+
               }`}
 >
 <button
+
                 className="page-link"
+
                 onClick={handleNextPage}
+
                 disabled={currentPage === totalPages}
 >
+
                 Next
 </button>
 </li>
 </ul>
 </nav>
+
       )}
 </div>
+
   );
+
 }

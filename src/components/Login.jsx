@@ -50,23 +50,13 @@ export const Login = () => {
         });
         setSuccess(true);
         // Fetch the tier after login
-        CustomerService.getTiersByEmail(email, token)
-          .then((tierResponse) => {
-            setCurrentTierStatus(tierResponse.data)
-            console.log("User's tier status:", tierResponse);
-            // Navigate based on role
-            if (response.data.userRole === "Customer") {
-              navigate("/customer");
-            } else if (response.data.userRole === "Seller") {
-              navigate("/seller");
-            } else if (response.data.userRole === "Admin") {
-              navigate("/admin");
-            }
-          })
-          .catch((tierError) => {
-            console.error("Failed to fetch tier:", tierError);
-            setError("Failed to fetch user tier. Please try again.");
-          });
+        if (response.data.userRole == "Customer") {
+          navigate("/customer");
+        } else if (response.data.userRole == "Seller") {
+          navigate("/seller");
+        } else if (response.data.userRole == "Admin") {
+          navigate("/admin");
+        }
       })
       .catch((error) => {
         if (!error?.response) {
